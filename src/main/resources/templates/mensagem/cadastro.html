@@ -1,0 +1,27 @@
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>
+
+<main>
+
+    <dialog class="g-5 stAvisos" id="avisos">
+
+        <div class="modal-header">
+            <h5 class="modal-title text-center ">Aviso!</h5>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" id="fechar" type="button"></button>
+        </div>
+
+        <div class="modal-body text-center p-2">
+            <p>Registro atualizado com sucesso!</p>
+            <a aria-current="page" class="btn btn-primary " href="/">Continuar</a>
+        </div>
+
+
+
+    </dialog>
+
+</main>
+</body>
+</html>

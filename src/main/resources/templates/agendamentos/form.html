@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>
+
+<main>
+    <div class="container">
+    </div>
+
+    <div class="container">
+
+        <div class="alert alert-warning mt-2" role="alert">
+            <p class="text-center fs-2">Agendar Consulta</p>
+        </div>
+
+        <form class="row g-3 m-3" method="post" action="/agendamento">
+            <div class="col-md-8">
+                <label class="form-label" for="idMedico">Médico</label>
+                <select class="form-select" id="idMedico" name="idMedico">
+                    <option value="">Selecione um médico</option>
+                    <th:block th:each="medicoList : ${medicos}">
+                        <option th:text="${medicoList.nome}" th:value="${medicoList.idPessoa}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input class="btn btn-outline-success" type="submit" value="Selecionar medico">
+            </div>
+        </form>
+
+        <form class="row g-3 m-3" method="post" novalidate
+              th:action="@{${agendamento.Id == null ? '/agendamento/save' : '/agendamento/update'}}"
+              th:object="${agendamento}">
+
+            <input th:field="*{id}" type="hidden">
+
+
+            <div class="col-md-8">
+                <label class="form-label" for="nome">Nome:</label>
+                <input class="form-control" id="nome" required th:field="*{nome}" type="text">
+            </div>
+
+
+            <div class="col-md-4">
+                <label class="form-label" for="dataNascimento">Data de Nascimento:</label>
+                <input class="form-control" id="dataNascimento" required th:field="*{dataNascimento}" type="date">
+            </div>
+
+
+            <div class="col-md-4">
+                <label class="form-label" for="telefone">Telefone:</label>
+                <input class="form-control" id="telefone" required th:field="*{telefone}" type="tel">
+            </div>
+
+
+            <div class="col-md-4">
+                <label class="form-label" for="tipoConsulta">Tipo de Consulta:</label>
+                <select class="form-select" id="tipoConsulta" required th:field="*{tipoConsulta}">
+                    <option value="">Selecione o tipo</option>
+                    <option value="CONSULTA">Consulta</option>
+                    <option value="RETORNO">Retorno</option>
+                    <option value="ENCAIXE">Encaixe</option>
+
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label" for="idData">Data consulta</label>
+                <select class="form-select" id="idData" name="idAgenda" required th:errorclass="is-invalid"
+                        th:field="*{agenda.id}">
+                    <option value="">Selecione uma data</option>
+                    <th:block th:each="dataList : ${agenda}">
+                        <option th:text="${dataList.horarioInicio}" th:value="${dataList.horarioInicio}"></option>
+                    </th:block>
+                </select>
+                <!--                <label class="invalid-feedback" th:if="${#fields.hasErrors('medico.idPessoa')}" th:errors="*{medico.idPessoa}"></label>-->
+            </div>
+
+
+            <!-- Campo Observações -->
+            <label class="form-label" for="observacoes">Observações:</label>
+            <textarea class="form-control" id="observacoes" rows="4" th:field="*{observacoes}"></textarea>
+            <br>
+
+            <div class="col-6">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <input class="btn btn-outline-success" type="submit" value="Salvar">
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</main>
+
+</body>
+<script>
+    function formataNumero(inputElement) {
+        // Obtém o valor atual do campo
+        let value = inputElement.value;
+
+        // Remove espaços em branco e caracteres não numéricos (exceto ponto e vírgula)
+        value = value.replace(/[^0-9.,]/g, '');
+
+        // Substitui vírgulas por pontos para obter um formato numérico válido
+        value = value.replace(',', '.');
+
+        // Formata o valor como uma String monetária (por exemplo, 1,000.00)
+        value = parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        // Atualiza o valor do campo
+        inputElement.value = value;
+    }
+</script>
+</html>

@@ -1,0 +1,105 @@
+<header th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+    <nav class="navbar navbar-collapse navbar-expand  navbar-dark bg-primary">
+
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+            <li class="nav-item">
+                <a aria-current="page" class="btn btn-primary" href="/">Home</a>
+            </li>
+
+
+            <li class="nav-item dropdown">
+                <a sec:authorize="hasAnyRole('ADMIN')" aria-expanded="false" class="btn btn-primary" data-bs-toggle="dropdown" href="#"
+                   id="navbarDropdownPaciente" role="button">
+                    Paciente
+                </a>
+                <ul aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/paciente/form">Cadastrar</a></li>
+                    <li><a class="dropdown-item" href="/paciente/selecionapaciente"
+                           id="btnBuscar">Pesquisar Paciente</a></li>
+                    <li><a class="dropdown-item" href="/paciente/list">Listar</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a aria-expanded="false" class="btn btn-primary" data-bs-toggle="dropdown"
+                   href="#" id="navbarDropdownMedico"
+                   role="button" sec:authorize="hasAnyRole('ADMIN')">
+                    Médico
+                </a>
+                <ul aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/medico/form">Cadastrar</a>
+                    <li><a class="dropdown-item" href="/medico/buscarmedico"
+                           id="btnBuscarMedico">Pesquisar Medico</a></li>
+                    <li><a class="dropdown-item" href="/medico/list">Listar</a></li>
+                </ul>
+            </li>
+
+
+            <li class="nav-item dropdown">
+                <a sec:authorize="hasAnyRole('ADMIN')" aria-expanded="false" class="btn btn-primary" data-bs-toggle="dropdown" href="#"
+                   id="navbarDropdownConsulta" role="button">
+                    Consultas
+                </a>
+                <ul aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/agendamento"
+                           id="btnAgendaConsulta">Agendar Consulta</a></li>
+
+                    <li><a class="dropdown-item" href="/paciente/selecionapaciente"
+                           id="btnNovaConsulta">Nova Consulta</a></li>
+
+                    <li><a class="dropdown-item" href="/consulta/list">Listar</a></li>
+
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a sec:authorize="hasAnyRole('PACIENTE')" aria-expanded="false" class="btn btn-primary" data-bs-toggle="dropdown" href="#"
+                   id="navbarDropdownUsuarioLogado" role="button">
+                    Paciente
+                </a>
+                <ul aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="/dadosusuario">
+                            Dados
+                        </a>
+
+                    </li>
+
+                    <li><a class="dropdown-item" href="/usuarioconsulta">Consultas</a></li>
+
+                </ul>
+            </li>
+
+
+        </ul>
+
+        <div class="nav-item dropdown">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="btn btn-primary" data-bs-toggle="dropdown" href="#"
+                       id="navbarDropdownUser" role="button">
+                        <span> <small> Logado como: </small> <strong sec:authentication="name"></strong> </span>
+
+
+                    </a>
+                    <ul aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+                        <li>
+                            <form method="post" th:action="@{/logout}">
+                                <button class="dropdown-item" type="submit">Sair</button>
+                            </form>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+</header>
+
+

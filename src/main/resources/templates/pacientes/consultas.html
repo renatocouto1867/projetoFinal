@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>
+
+<main>
+
+    <div class="container mt-3">
+
+        <div class="alert alert-warning mt-2" role="alert">
+            <h1 class="fs-2 text-center">Lista de consultas</h1>
+            <h2 class="fs-3">Paciente: <span th:text="${paciente.getNome()}"></span></h2>
+        </div>
+
+        <table border="1" class="table table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>Codigo</th>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Valor</th>
+                <th>Observações</th>
+                <th>Medico</th>
+            </tr>
+            </thead>
+            <tr th:each="c : ${paciente.getConsultaList()}">
+                <td th:text="${c.idConsulta}"></td>
+                <td th:text="${#temporals.format(c.getDateTime(), 'dd/MM/yyyy')}"></td>
+                <td th:text="${#temporals.format(c.getDateTime(), 'HH:mm')}"></td>
+                <td th:text="${#numbers.formatDecimal(c.valor,1,2,'COMMA')}"></td>
+                <td th:text="${c.observacao}"></td>
+                <td th:text="${c.medico.getNome()}"></td>
+            </tr>
+
+            <tfoot>
+            <tr>
+                <td colspan="5">Total: R$ <span
+                        th:text="${#numbers.formatDecimal(paciente.valorTotalConsulta(),1,2,'COMMA')}"></span></td>
+            </tr>
+            </tfoot>
+
+        </table>
+
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <button class="btn btn-outline-success" onclick="voltarTela()" type="button">Voltar</button>
+        </div>
+
+
+    </div>
+
+
+</main>
+
+</body>
+</html>
+

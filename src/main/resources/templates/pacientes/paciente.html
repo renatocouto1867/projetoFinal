@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>
+
+<main>
+<div class="container mt-5">
+    <div class="card">
+        <div class="alert alert-info">
+            <h2 class="text-center">Detalhes do Paciente</h2>
+        </div>
+        <div class="card-body">
+            <p class="text-xl-start">Codigo: <span class="text-xl-start fw-bold" th:text="${paciente.idPessoa}"></span></p>
+            <p class="text-xl-start">CPF: <span class="text-xl-start fw-bold" th:text="${paciente.getCpf()}"></span></p>
+            <p class="text-xl-start">Nome: <span class="text-xl-start fw-bold" th:text="${paciente.getNome()}"></span></p>
+            <p class="text-xl-start">Data de Nascimento: <span class="text-xl-start fw-bold" th:text="${#temporals.format(paciente.getDataNascimento(), 'dd/MM/yyyy')}"></span></p>
+            <p class="text-xl-start">Idade: <span class="text-xl-start fw-bold" th:text="${paciente.getIdade()}"></span></p>
+            <p class="text-xl-start">Sexo biológico: <span class="text-xl-start fw-bold" th:text="${paciente.sexoBiologico}"></span></p>
+            <p class="text-xl-start">Telefône: <span class="text-xl-start fw-bold" th:text="${paciente.telefone}"></span></p>
+            <p class="text-xl-start">Convênio: <span class="text-xl-start fw-bold" th:text="${paciente.convenioMedico}"></span></p>
+
+        </div>
+    </div>
+    <div class="gap-2 mt-2 d-md-flex justify-content-md-center">
+        <button class="btn btn-outline-success" onclick="voltarTela()" type="button">Voltar</button>
+<!--        <a class="btn btn-outline-success" href="/paciente/list">Voltar</a>-->
+    </div>
+</div>
+
+</main>
+
+</body>
+</html>
+

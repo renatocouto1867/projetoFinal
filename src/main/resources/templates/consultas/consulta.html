@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>idPessoa
+
+<main>
+<div class="container mt-5">
+    <div class="card">
+        <div class="alert alert-info">
+            <h2 class="text-center">Detalhes da Consulta</h2>
+        </div>
+        <div class="card-body">
+            <p class="text-xl-start">Codigo: <span class="text-xl-start fw-bold" th:text="${consulta.getIdConsulta}"></span></p>
+            <p class="text-xl-start">Paciente: <span class="text-xl-start fw-bold" th:text="${consulta.paciente.getNome()}"></span></p>
+            <p class="text-xl-start">Médico: <span class="text-xl-start fw-bold" th:text="${consulta.medico.getNome()}"></span></p>
+            <p class="text-xl-start">Data: <span class="text-xl-start fw-bold" th:text="${#temporals.format(consulta.getDateTime(), 'dd/MM/yyyy')}"></span></p>
+            <p class="text-xl-start">Hora: <span class="text-xl-start fw-bold" th:text="${#temporals.format(consulta.getDateTime(), 'HH:mm')}"></span></p>
+            <p class="text-xl-start">Observações: <span class="text-xl-start fw-bold" th:text="${consulta.observacao}"></span></p>
+            <p class="text-xl-start">Valor: <span class="text-xl-start fw-bold" th:text="${#numbers.formatDecimal(consulta.valor,1,2,'COMMA')}"></span></p>
+
+        </div>
+    </div>
+    <div class="gap-2 mt-2 d-md-flex justify-content-md-center">
+    <a class="btn btn-outline-success" href="/consulta/list">Voltar</a>
+    </div>
+</div>
+
+</main>
+
+</body>
+</html>
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>
+
+<main>
+    <div class="container">
+    </div>
+
+    <div class="container">
+
+        <div class="alert alert-warning mt-2" role="alert">
+            <p class="text-center fs-2">Nova Consulta</p>
+
+        </div>
+
+        <div class="alert alert-info mt-2" role="alert">
+            <p class="fs-3">Paciente: <span th:text="${consulta.paciente.getNome()}"></span></p>
+        </div>
+
+        <form novalidate class="row g-3 m-3" method="post"
+              th:action="@{${consulta.idConsulta == null ? '/consulta/save' : '/consulta/update'}}"
+              th:object="${consulta}">
+
+            <input id="idConsulta" th:field="*{idConsulta}" type="hidden">
+            <input id="idPaciente" th:value="${consulta.paciente.idPessoa}" th:field="*{paciente.idPessoa}" type="hidden">
+
+
+<!--            em caso de Consulta nova é atribuido a data atual para o formulario-->
+            <div class="col-md-3" th:if="${consulta.idConsulta==null}">
+                <label class="form-label" for="dateTime">Data e Hora</label>
+                <input class="form-control" id="dateTime" name="dateTime" th:value="${dataConsulta}" type="datetime-local" th:errorclass="is-invalid" readonly>
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}"></label>
+            </div>
+
+            <div class="col-md-3" th:if="${consulta.idConsulta!=null}">
+                <label class="form-label" for="data1">Data e Hora</label>
+                <input class="form-control" id="data1" name="dateTime" th:field="*{dateTime}" th:errorclass="is-invalid" type="datetime-local">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}"></label>
+            </div>
+
+
+            <div class="col-md-6">
+                <label class="form-label" for="idMedico">Médico</label>
+                <select class="form-select" id="idMedico" name="idMedico" th:errorclass="is-invalid" required th:field="*{medico.idPessoa}">
+                    <option value="">Selecione um médico</option>
+                    <th:block th:each="medicoList : ${medicos}">
+                        <option th:text="${medicoList.nome}" th:value="${medicoList.idPessoa}"></option>
+                    </th:block>
+                </select>
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('medico.idPessoa')}" th:errors="*{medico.idPessoa}"></label>
+            </div>
+
+
+            <div class="col-md-3">
+                <label class="form-label" for="valor">Valor</label>
+                <input class="form-control valorMonetario" id="valor" th:errorclass="is-invalid" th:field="*{valor}" type="number" step="0.01" min="0.00" placeholder="0.00" oninput="formataNumero(this)">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></label>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label" for="observacoes">Observações</label>
+                <textarea class="form-control" id="observacoes" rows="4" th:field="*{observacao}"></textarea>
+            </div>
+
+            <div class="col-6">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <input class="btn btn-outline-success" type="submit" value="Enviar">
+                </div>
+            </div>
+
+            <div class="alert alert-danger mt-2" th:each="erro : ${#fields.detailedErrors()}">
+                <!--                <span th:text="${erro.fieldName}+' '+${erro.message}"></span>-->
+                <span class="" th:text="${erro.message}"></span>
+            </div>
+        </form>
+    </div>
+
+</main>
+
+</body>
+<script>
+    function formataNumero(inputElement) {
+        // Obtém o valor atual do campo
+        let value = inputElement.value;
+
+        // Remove espaços em branco e caracteres não numéricos (exceto ponto e vírgula)
+        value = value.replace(/[^0-9.,]/g, '');
+
+        // Substitui vírgulas por pontos para obter um formato numérico válido
+        value = value.replace(',', '.');
+
+        // Formata o valor como uma String monetária (por exemplo, 1,000.00)
+        value = parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        // Atualiza o valor do campo
+        inputElement.value = value;
+    }
+</script>
+</html>

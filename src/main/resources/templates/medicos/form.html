@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>
+
+<main>
+
+
+    <div class="container">
+        <div class="alert alert-warning mt-2" role="alert">
+            <h1 class="text-center">Cadastro de Médico</h1>
+        </div>
+
+        <form novalidate class="row g-3 m-3" method="post"
+              th:action="@{${medico.idPessoa == null} ? '/medico/save' : '/medico/update'}" th:object="${medico}">
+
+            <input th:field="*{idPessoa}" type="hidden">
+            <div class="col-md-4">
+                <label class="form-label" for="CPF">CPF</label>
+                <input class="form-control" id="CPF" placeholder="" th:field="*{cpf}" th:errorclass="is-invalid" type="text" required>
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></label>
+            </div>
+
+            <div class="col-md-8">
+                <label class="form-label" for="nome">Nome</label>
+                <input class="form-control" id="nome" placeholder="" th:field="*{nome}" th:errorclass="is-invalid" type="text" required>
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></label>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label" for="data_nascimento" >Data de Nascimento</label>
+                <input class="form-control" id="data_nascimento" th:errorclass="is-invalid" th:field="*{dataNascimento}" type="date" required>
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></label>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label" for="sexo_biologico" >Sexo biológico</label>
+                <select class="form-select" id="sexo_biologico"  th:errorclass="is-invalid" name="sexo_biologico" required
+                        th:field="*{sexoBiologico}">
+                    <option value="">Selecione uma opção</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('sexoBiologico')}" th:errors="*{sexoBiologico}"></label>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label" for="telefone">Telefone</label>
+                <input class="form-control" id="telefone" placeholder="" th:field="*{telefone}" th:errorclass="is-invalid" type="text">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></label>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label" for="CRM">CRM</label>
+                <input class="form-control" id="CRM" placeholder="" th:field="*{crm}" th:errorclass="is-invalid" type="text">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('crm')}" th:errors="*{crm}"></label>
+            </div>
+
+<!--            <div class="col-6">-->
+<!--                <div class="d-grid gap-2 d-md-flex justify-content-md-start">-->
+<!--                    <a class="btn btn-outline-primary" href="http://localhost:8080/">Voltar</a>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="col-6">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <input class="btn btn-outline-success" type="submit" value="Enviar">
+                </div>
+            </div>
+
+            <div class="alert alert-danger mt-2" th:each="erro : ${#fields.detailedErrors()}">
+                <span class="" th:text="${erro.message}"></span>
+            </div>
+
+        </form>
+    </div>
+
+</main>
+
+</body>
+</html>
+
+

@@ -1,0 +1,42 @@
+html{
+    background-color: rgb( 0 0 0/.3);
+}
+
+.containerTamanho{
+        max-width: 1700px;
+        padding: 0;
+}
+
+/* Seletor para ocultar as setas nos campos de número */
+   .valorMonetario {
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
+    /*estilo modal*/
+    dialog::backdrop{
+        background-color: rgb( 0 0 0/.3);
+    }
+    .stModal{
+        border: none;
+        border-radius: .5rem;
+        box-shadow: 0 0 1em rgb(0 0 0 / .3);
+        /*min-width: 50%;*/
+        min-height: 40%;
+        max-height: 80%;
+    }
+    /*fim estilo modal*/
+
+/*estilo avisos*/
+.stAvisos{
+    border: none;
+    border-radius: .5rem;
+    box-shadow: 0 0 1em rgb(0 0 0 / .3);
+
+    min-width: 30%;
+    max-width: 80%;
+
+    min-height: 20%;
+    max-height: 30%;
+}
+/*fim estilo modal*/

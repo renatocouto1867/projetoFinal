@@ -16,26 +16,32 @@
             <p class="text-center fs-2">Agendar Consulta</p>
         </div>
 
-        <form class="row g-3 m-3" method="post" action="/agendamento">
-            <div class="col-md-8">
-                <label class="form-label" for="idMedico">Médico</label>
-                <select class="form-select" id="idMedico" name="idMedico">
-                    <option value="">Selecione um médico</option>
-                    <th:block th:each="medicoList : ${medicos}">
-                        <option th:text="${medicoList.nome}" th:value="${medicoList.idPessoa}"></option>
-                    </th:block>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <input class="btn btn-outline-success" type="submit" value="Selecionar medico">
-            </div>
-        </form>
+<!--        <form class="row g-3 m-3" method="post" th:action="${'/agendamento'}" th:object="${medico}">-->
+
+<!--            <div class="col-md-8">-->
+<!--                <label class="form-label" for="idMedico">Médico</label>-->
+<!--                <select class="form-select" id="idMedico" name="idMedico">-->
+<!--                    <option value="">Selecione um médico</option>-->
+<!--                    <th:block th:each="medicoList : ${medicos}">-->
+<!--                        <option th:text="${medicoList.nome}" th:fields="${medicoList.idPessoa}"></option>-->
+<!--                    </th:block>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div class="col-md-4">-->
+<!--                <input class="btn btn-outline-success" type="submit" value="Selecionar medico">-->
+<!--            </div>-->
+<!--        </form>-->
 
         <form class="row g-3 m-3" method="post" novalidate
               th:action="@{${agendamento.Id == null ? '/agendamento/save' : '/agendamento/update'}}"
               th:object="${agendamento}">
 
-            <input th:field="*{id}" type="hidden">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="alert alert-info mt-2" role="alert">
+                <p class="fs-3">Paciente: <span th:text="${medico.getNome()}"></span></p>
+            </div>
+
 
 
             <div class="col-md-8">
@@ -73,7 +79,7 @@
                         th:field="*{agenda.id}">
                     <option value="">Selecione uma data</option>
                     <th:block th:each="dataList : ${agenda}">
-                        <option th:text="${dataList.horarioInicio}" th:value="${dataList.horarioInicio}"></option>
+                        <option th:text="${dataList.horarioInicio}" th:value="${dataList.id}"></option>
                     </th:block>
                 </select>
                 <!--                <label class="invalid-feedback" th:if="${#fields.hasErrors('medico.idPessoa')}" th:errors="*{medico.idPessoa}"></label>-->

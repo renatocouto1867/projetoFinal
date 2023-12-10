@@ -43,9 +43,8 @@ public class PacienteController {
         return new ModelAndView("/pacientes/lista", model);
     }
 
-//    @ResponseBody
-//    @RequestMapping("listnome")
-@GetMapping("listnome")
+    @ResponseBody
+    @RequestMapping("listnome")
     public ModelAndView listarnome(ModelMap model, @RequestParam String nome) {//@RequestParam para capturar o parametro
         model.addAttribute("paciente", repository.pacientesNome(nome));
         return new ModelAndView("/pacientes/formbuscapaciente", model);

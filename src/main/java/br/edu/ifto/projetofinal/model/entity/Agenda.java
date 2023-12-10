@@ -16,6 +16,16 @@ public class Agenda {
     @JoinColumn(name = "pessoaId") // Especifique o nome da coluna
     private Medico medico;
 
+    private boolean disponivel;
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+
     public Long getId() {
         return id;
     }

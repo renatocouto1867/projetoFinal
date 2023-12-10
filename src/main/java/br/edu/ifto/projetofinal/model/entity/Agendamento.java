@@ -14,7 +14,8 @@ public class Agendamento {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataNascimento;
     private String telefone;
-    @OneToOne
+
+    @OneToOne ()
     private Agenda agenda;
 
     @Enumerated(EnumType.STRING)

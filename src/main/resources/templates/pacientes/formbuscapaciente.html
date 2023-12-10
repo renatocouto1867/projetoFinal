@@ -14,7 +14,7 @@
 
         <div class="modal-body">
 
-            <form action='/paciente/listnome' class="d-flex mt-2" role="search" method="post">
+            <form th:action="${'/paciente/listnome'}" class="d-flex mt-2" role="search" method="post">
                     <input class="form-control me-2" id="nome" name="nome" placeholder="Digite o nome do paciente" type="search" aria-label="Buscar">
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>

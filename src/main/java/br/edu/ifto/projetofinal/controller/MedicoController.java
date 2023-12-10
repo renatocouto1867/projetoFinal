@@ -70,16 +70,16 @@ public class MedicoController {
 
     @GetMapping("/buscarmedico")
     public String buscarMedico() {
-        return "medicos/buscamedico";
+        return "medicos/formbuscamedico";
     }
-//    @ResponseBody
-//    @RequestMapping("listnome")
-    @PostMapping("/listnome")
-    public ModelAndView listarNome(ModelMap model, @RequestParam String nome, BindingResult result) {//@RequestParam para capturar o parametro
-        System.out.printf("teste");
+
+    @ResponseBody
+    @RequestMapping("listnome")
+    public ModelAndView listarNome(ModelMap model, @RequestParam String nome) {//@RequestParam para capturar o parametro
         model.addAttribute("medico", repository.medicoNome(nome));
-        return new ModelAndView("/medico/buscarmedico", model);
+        return new ModelAndView("medicos/formbuscamedico", model);
     }
+
     @GetMapping("/consultas/{id}")
     public ModelAndView medico(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("medico", repository.medico(id));

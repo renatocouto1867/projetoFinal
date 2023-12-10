@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                                         .requestMatchers(HttpMethod.GET, "paciente/form").permitAll()
                                         .requestMatchers(HttpMethod.POST, "paciente/save").permitAll()
 
-                                        .requestMatchers(HttpMethod.POST,"/medico/listnome","http://localhost:8080/medico/listnome","/paciente/**", "/medico/**", "/consulta/**",
+                                        .requestMatchers(HttpMethod.POST,"/paciente/**","/medico/listnome","http://localhost:8080/medico/listnome", "/medico/**", "/consulta/**",
                                                 "/pacientes/**", "/consultas/**","/agendamento/**").hasAnyRole("ADMIN","MEDICO")
                                         .requestMatchers("/paciente/**", "/medico/**", "/consulta/**",
                                                 "/pacientes/**", "/consultas/**","/agendamento/**").hasAnyRole("ADMIN","MEDICO")
